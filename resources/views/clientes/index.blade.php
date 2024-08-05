@@ -46,6 +46,9 @@
                         <th scope="col" class="max-w-3 px-1 py-2">
                             Telefone
                         </th>
+                        <th scope="col" class="max-w-3 px-1 py-2">
+                            Orçamentos
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +57,7 @@
                         <th scope="row" class="max-w-1 px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{$cliente->id}}
                         </th>
-                        <td class="max-w-1 px-1 py-2">
+                        <td class="max-w-2 px-1 py-2">
                         {{$cliente->tipo_pessoa}}
                         </td>
                         <td class="max-w-2 px-1 py-2">
@@ -64,9 +67,20 @@
                         {{$cliente->nome}}
                         </td>
                         <td class="max-w-3 px-1 py-2">
-                        {{$cliente->Telefone}}
+                        {{$cliente->telefone}}
                         </td>
-                    </tr>
+                        <td class="max-w-1 px-1 py-2">
+                            @forelse ($cliente->budgets as $budget)
+                                @if ($loop->last)
+                                    {{$budget->numero_orcamento}}
+                                @else
+                                    {{$budget->numero_orcamento}}{{', '}}
+                                @endif
+                            @empty
+                                Nenhum Orçamento
+                            @endforelse
+                        </td>
+                        </tr>
                 @endforeach
                 </tbody>
             </table>

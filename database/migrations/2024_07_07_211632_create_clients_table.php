@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('nome',110);
+            $table->string('nome',100);
             $table->string('cnpj',14)->nullable();
             $table->string('tipo_pessoa',10)->nullable();
             $table->string('tipo_documento_1',25)->nullable();
