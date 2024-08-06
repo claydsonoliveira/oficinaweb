@@ -1,27 +1,4 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-        <nav class="bg-gray-300">
-            <div class="container mx-auto flex items-center justify-between p-4">
-                <a href="/" class="text-2xl font-semibold">Workshop</a>
-
-                <ul class="font-medium px-4">
-                    <li class="px-4">
-                        <a href="/clientes">Cadastro de Clientes</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    <div class="container mx-auto">
-
-        <h1 class="text-4xl font-bold text-center">
-            Cadastrar Novo Clientes
-        </h1>
+<x-layout titulo="Cadastrar Novo Cliente">
 
         @if ($errors->any())
             <div class="flex justify-between items-center p-2 bg-red-500 text-white border-2 border-red-500 rounded-sm">
@@ -111,7 +88,7 @@
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cadastrar Cliente</button>
         </form>
 
-
+</x-layout>
 
 
 
@@ -120,8 +97,4 @@
             
 
 
-    </div>
-
-</body>
-</html>
 

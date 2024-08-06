@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Client extends Model
 {
@@ -14,6 +15,7 @@ class Client extends Model
     /**
      * 
      * Um cliente tem muitos orcamentos
+     * @return HasMany
      */
     public function budgets() {
         return $this->hasMany(Budget::class);

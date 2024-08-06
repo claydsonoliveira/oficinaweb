@@ -1,29 +1,7 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-        <nav class="bg-gray-300">
-            <div class="container mx-auto flex items-center justify-between p-4">
-                <a href="/" class="text-2xl font-semibold">Workshop</a>
 
-                <ul class="font-medium px-4">
-                    <li class="px-4">
-                        <a href="/clientes">Cadastro de Clientes</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    <div class="container mx-auto">
+<x-layout titulo="Lista de Clientes">
 
-        <h1 class="text-4xl font-bold text-center">
-            Lista de Clientes
-        </h1>
-
-        <div class="flex justify-end my-3">
+    <div class="flex justify-end my-3">
             <a class="bg-green-500 border rounded-md p-1 px-3 text-white" href="/clientes/create">Criar cliente</a>
         </div>
 
@@ -85,15 +63,6 @@
                 </tbody>
             </table>
         </div>
+</x-layout>
 
-
-
-            
-            </br>
-
-
-    </div>
-
-</body>
-</html>
 
