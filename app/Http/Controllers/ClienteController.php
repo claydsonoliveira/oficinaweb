@@ -6,6 +6,7 @@ use App\Http\Requests\OficinaWebRequest;
 use App\Models\Client;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class ClienteController extends Controller
 {
@@ -24,7 +25,7 @@ class ClienteController extends Controller
 
      public function index() {
 
-        $clientes = Client::with('budgets')->get();
+        $clientes = Client::with('budgets')->paginate(5);
 
         /**
          * 
@@ -83,6 +84,67 @@ class ClienteController extends Controller
         }
         $novoCliente->save();
 */
-        return redirect('/clientes');
+        return redirect()
+            ->route('clientes.index')
+            ->with('mensagem', 'Cliente Cadastrado com Sucesso');
     }
+
+
+    public function edit(Client $cliente) {
+
+        /*
+
+            # retirado para ficar mais enxuto e alterando o method acima public function edit($clienteId) para o atual
+
+
+            $cliente = Client::where('id', $clienteId)->first();
+
+            $cliente = Client::findOrFail($clienteId);
+
+        */
+
+
+        return view('clientes.edit', compact('cliente'));
+    }
+
+    public function update(OficinaWebRequest $request, Client $cliente) {
+        $dados = $request->except(['_token', '_method']);
+
+        /*
+
+            # retirado para ficar mais enxuto e alterando o method acima public function update(Request $request, $clienteId) para o atual
+
+
+            $cliente = Client::where('id', $clienteId)->first();
+
+            $cliente = Client::findOrFail($clienteId);
+
+        */
+
+        $cliente->update($dados);
+        return redirect()
+            ->route('clientes.index')
+            ->with('mensagem', 'Cliente Alterado com Sucesso');
+    }
+
+    public function destroy(Request $request, Client $cliente) {
+        $dados = $request->except(['_token', '_method']);
+
+        /*
+
+            # retirado para ficar mais enxuto e alterando o method acima public function update(Request $request, $clienteId) para o atual
+
+
+            $cliente = Client::where('id', $clienteId)->first();
+
+            $cliente = Client::findOrFail($clienteId);
+
+        */
+
+        $cliente->delete($dados);
+        return redirect()
+            ->route('clientes.index')
+            ->with('mensagem', 'Cliente Excluido com Sucesso');
+    }
+
 }

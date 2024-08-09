@@ -24,7 +24,8 @@ class OficinaWebRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'min:3', new OficinaWeb],
-            'documento_1' => ['required', 'integer']
+            'documento_1' => ['required', 'integer'],
+            'numero' => ['required', 'max:5']
         ];
     }
 }
