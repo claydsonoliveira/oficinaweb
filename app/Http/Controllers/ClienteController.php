@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OficinaWebRequest;
 use App\Models\Client;
-use GuzzleHttp\Promise\Create;
+use App\Models\Segment;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\OficinaWebRequest;
 
 class ClienteController extends Controller
 {
@@ -45,7 +47,16 @@ class ClienteController extends Controller
      * @return View|Factory 
      */
     public function create() {
-        return view('clientes.create');
+        $clientes = Client::with('segments')->get();
+
+        $seguimentos = Segment::orderBy('seguimento')->get();
+
+//        dd($seguimentos);
+
+        return view('clientes.create',[
+            'clientes' => $clientes,
+            'seguimentos' => $seguimentos
+        ]);
     }
 
     /**
@@ -63,7 +74,23 @@ class ClienteController extends Controller
 //        $dados = $request->all();
         $dados = $request->except('_token');
 
-        Client::create($dados);
+        try {
+            DB::beginTransaction();
+            
+            Client::create($dados);
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return redirect()
+            ->back()
+            ->withInput()
+            ->withErrors('Erro ao criar novo Cliente');
+
+        }
+
         
 //        $tam = count($dados);
 //        echo "TAM $tam";
@@ -102,9 +129,12 @@ class ClienteController extends Controller
             $cliente = Client::findOrFail($clienteId);
 
         */
+        $seguimentos = Segment::orderBy('seguimento')->get();
 
 
-        return view('clientes.edit', compact('cliente'));
+        return view('clientes.edit', compact('cliente'), [
+            'seguimentos' => $seguimentos
+        ]);
     }
 
     public function update(OficinaWebRequest $request, Client $cliente) {
@@ -121,7 +151,25 @@ class ClienteController extends Controller
 
         */
 
-        $cliente->update($dados);
+        try {
+            DB::beginTransaction();
+            
+            $cliente->update($dados);
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return redirect()
+            ->back()
+            ->withInput()
+            ->withErrors('Erro ao atualizar Cliente');
+
+        }
+
+
+;;        $cliente->update($dados);
         return redirect()
             ->route('clientes.index')
             ->with('mensagem', 'Cliente Alterado com Sucesso');

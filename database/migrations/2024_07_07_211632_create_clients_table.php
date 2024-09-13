@@ -36,7 +36,7 @@ return new class extends Migration
             $table->date('data_nascimento')->nullable();
             $table->string('naturalidade',45)->nullable();
             $table->string('nacionalidade',45)->nullable();
-            $table->integer('id_seguimento', false, false)->nullable();
+            $table->unsignedBigInteger('segment_id')->nullable();
             $table->string('profissao',30)->nullable();
             $table->string('restricao',8)->nullable();
             $table->string('email',100)->nullable();

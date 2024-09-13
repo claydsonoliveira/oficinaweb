@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FuncionarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,4 +15,4 @@ Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name(
 Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 
-
+Route::resource('funcionarios', FuncionarioController::class)->except('show');

@@ -15,6 +15,23 @@ class OficinaWebRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $dados = $this->all();
+
+        if (isset($dados['documento_1'])) {
+            $dados['documento_1'] = str_replace(['.', '-'], '', $dados['documento_1']);
+        }
+
+        if (isset($dados['cep'])) {
+            $dados['cep'] = str_replace(['.', '-'], '', $dados['cep']);
+        }
+
+        $this->replace($dados);
+
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
